@@ -1,7 +1,8 @@
 // CONSTANTS
 export const secondToMinutes = {
     min25: 1500,
-    min5: 300
+    min5: 300,
+    min1: 30
 }
 
 export const dateToSeconds = (dateTime) => {
