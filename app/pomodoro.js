@@ -1,4 +1,5 @@
 import { secondToMinutes } from './utils'
+import { vibration } from "haptics";
 export const stateEnum = {
     running:'RUNNING',
     endPomo:'ENDPOMO',
@@ -20,10 +21,10 @@ const runningSession = {
 
 export function Pomodoro () {
        
-        this.state =  stateEnum.endBreak
+        this.state =  stateEnum.idle
         this.startTime = null
         this.currentTime = null
-        // this.fractionComplete = this.startTime
+        this.ringTime = 0
         this.elapsedTime = () =>  {
             // console.log(`current ${this.currentTime}, start ${this.startTime}`)
             return this.currentTime - this.startTime
@@ -48,12 +49,16 @@ export function Pomodoro () {
             case stateEnum.running:
                 if(this.elapsedTime() >= secondToMinutes.min1) {
                     this.state = stateEnum.endPomo
-                    this.currentTime = this.startTime //stay at zerp
-                }
+                    this.currentTime = this.startTime //stay at zero
+                } 
                 break;
             case stateEnum.endPomo:
                 break;
             case stateEnum.breakrunning:
+                if(this.elapsedTime() >= secondToMinutes.min1) {
+                    this.state = stateEnum.endBreak
+                    this.currentTime = this.startTime //stay at zero
+                } 
                 break;
             case stateEnum.endBreak:
                 break;
