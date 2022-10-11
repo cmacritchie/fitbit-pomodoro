@@ -49,11 +49,14 @@ function handleClock(evt) {
     if(pomodoro.state === stateEnum.endPomo) {
         timerLabel.text = minuteSecondFormat(secondToMinutes.min5)
         timeArc.sweepAngle = 360
-        if(pomodoro.elapsedTime() % 2) {
-            clockBackground.style.fill = "#ffff00"; // Replace "#ffffff" with your color
+        if(Math.floor(pomodoro.elapsedTime()) % 3 === 1) {
+            clockBackground.style.fill = "#ff0000"; // Replace "#ffffff" with your color
+        }
+        else if (Math.floor(pomodoro.elapsedTime()) % 3 === 2){
+            clockBackground.style.fill = "#ffffff";
         }
         else {
-            clockBackground.style.fill = "#ffffff";
+            clockBackground.style.fill = "#66bb55";
         }
     }
 
