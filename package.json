@@ -9,8 +9,8 @@
   },
   "fitbit": {
     "appUUID": "3509f5b5-babd-4949-b4f5-fa5921119ce1",
-    "appType": "app",
-    "appDisplayName": "Test",
+    "appType": "clockface",
+    "appDisplayName": "Pomodoro",
     "iconFile": "resources/icon.png",
     "wipeColor": "#ffffff",
     "requestedPermissions": [],

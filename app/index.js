@@ -30,7 +30,7 @@ function handleClock(evt) {
     // console.log(pomodoro.state)
     if(pomodoro.state === stateEnum.idle) {
         clockBackground.style.fill = "#00bfff";
-        timerLabel.text = minuteSecondFormat(secondToMinutes.min1)
+        timerLabel.text = minuteSecondFormat(secondToMinutes.min25)
         timeArc.sweepAngle=0
     }
 
@@ -42,8 +42,8 @@ function handleClock(evt) {
         // const toad = minuteSecondFormat(time)
         // console.log(toad)
         // const passedTime = 
-        timerLabel.text = minuteSecondFormat(secondToMinutes.min1 - pomodoro.elapsedTime())
-        timeArc.sweepAngle = secondsToAngle(pomodoro.elapsedTime(), secondToMinutes.min1)
+        timerLabel.text = minuteSecondFormat(secondToMinutes.min25 - pomodoro.elapsedTime())
+        timeArc.sweepAngle = secondsToAngle(pomodoro.elapsedTime(), secondToMinutes.min25)
     }
 
     if(pomodoro.state === stateEnum.endPomo) {
@@ -62,8 +62,8 @@ function handleClock(evt) {
 
     if(pomodoro.state === stateEnum.breakrunning) {
         clockBackground.style.fill = "#66bb55";
-        timeArc.sweepAngle = secondsToAngle(pomodoro.elapsedTime(), secondToMinutes.min1)
-        timerLabel.text = minuteSecondFormat(secondToMinutes.min1 - pomodoro.elapsedTime())
+        timeArc.sweepAngle = secondsToAngle(pomodoro.elapsedTime(), secondToMinutes.min5)
+        timerLabel.text = minuteSecondFormat(secondToMinutes.min5 - pomodoro.elapsedTime())
     }
 
     if(pomodoro.state === stateEnum.endBreak) {
@@ -82,7 +82,7 @@ function updateDisplay() {
 }
 
 function stopVibratefn() {
-    console.log("stopP IT!")
+    // console.log("stopP IT!")
     vibration.stop("alert")
 }
 
@@ -92,33 +92,33 @@ function pomodoroBtn(evt) {
     const time = dateToSeconds(Date.now())
     // console.log("TMEI", clock.dateToSeconds())
     // pomodoro.setStart(time)
-    console.log("CLICKED", pomodoro.state)
+    // console.log("CLICKED", pomodoro.state)
     switch(pomodoro.state) {
         case stateEnum.idle:
             pomodoro.setStart(time, stateEnum.running)
-            intervalID = setTimeout(updateDisplay, 0.5 * 60 * 1000)
-            stopVibrate = setTimeout(stopVibratefn, (0.5 * 60 * 1000) + 5000)
+            intervalID = setTimeout(updateDisplay, secondToMinutes.min25 * 1000) //craig
+            stopVibrate = setTimeout(stopVibratefn, (secondToMinutes.min25 * 1000) + 10000) //craig
             break;
         case stateEnum.running:
             clearTimeout(intervalID);
             clearTimeout(stopVibrate)
-            timerLabel.text = minuteSecondFormat(secondToMinutes.min1)
+            timerLabel.text = minuteSecondFormat(secondToMinutes.min25)
             timeArc.sweepAngle=0
             pomodoro.state = stateEnum.idle
     
             break;
         case stateEnum.endPomo:
             pomodoro.setStart(time, stateEnum.breakrunning)
-            intervalID = setTimeout(updateDisplay, 0.5 * 60 * 1000)
-            stopVibrate = setTimeout(stopVibratefn, (0.5 * 60 * 1000) + 5000)
+            intervalID = setTimeout(updateDisplay, secondToMinutes.min5 * 1000)
+            stopVibrate = setTimeout(stopVibratefn, (secondToMinutes.min5* 1000) + 10000)
             break;
         case stateEnum.breakrunning:
+            clockBackground.style.fill = "#66bb55";
+            timerLabel.text = minuteSecondFormat(0)
+            timeArc.sweepAngle = 0
             clearTimeout(intervalID);
             clearTimeout(stopVibrate)
-            timerLabel.text = minuteSecondFormat(secondToMinutes.min1)
-            timeArc.sweepAngle = 0
             pomodoro.state = stateEnum.idle
-            clockBackground.style.fill = "#66bb55";
             break;
         case stateEnum.endBreak:
             clearTimeout(intervalID);

@@ -1,5 +1,5 @@
 .defaultText {
-  font-size: 32;
+  font-size: 45;
   font-family: System-Regular;
   font-weight: regular;
   text-length: 32;
@@ -17,14 +17,16 @@
 
 .plus-button #image {
   href: "play-button.png";
-  x:50;
-  y:120;
+  /* x:150;
+  y:120; */
 }
 
-#button-4 {
-  x: 120;
-  y: 120;
+#play-button {
+  x: 68;
+  y: 68;
+  width:60%;
+  height:60%;
 }
 
 .toast
-  { opacity: 0.1 }
+  { opacity: 0.0 }
