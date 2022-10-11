@@ -1,10 +1,12 @@
 import clock from "clock";
 import * as document from "document";
 import { Pomodoro, stateEnum } from "./pomodoro.js";
-import { dateToSeconds, minuteSecondFormat, secondToMinutes } from './utils'
+import { dateToSeconds, minuteSecondFormat, secondToMinutes, zeroPad } from './utils'
 import { display } from "display";
 import { vibration } from "haptics";
 
+let days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+let monthsShort = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 //tick every second
 clock.granularity = "seconds";
 
@@ -13,6 +15,7 @@ let timeArc = document.getElementById("timeArc");
 let playButton = document.getElementById("play-button");
 let timerLabel = document.getElementById("timer-label")
 let clockBackground = document.getElementById("clockBackground");
+let watchTime = document.getElementById("watchTime");
 
 //instantiate pomodoro
 let pomodoro = new Pomodoro()
@@ -25,7 +28,16 @@ function secondsToAngle(seconds, reqTime) {
   }
 
 function handleClock(evt) {
-    // console.log(pomodoro.state)
+    let today = evt.date
+    let dayName = days[today.getDay()];
+    let monthNameShort = monthsShort[today.getMonth()];
+    let dayNumber = zeroPad(today.getDate());
+    let hours = today.getHours();
+    let mins = zeroPad(today.getMinutes());
+    let timeString = `${hours}:${mins}`;
+    let dateString = `${dayName} ${monthNameShort} ${dayNumber}`; //use later
+    watchTime.text = timeString
+
     pomodoro.updateTime(dateToSeconds(evt.date))
     // console.log(pomodoro.state)
     if(pomodoro.state === stateEnum.idle) {

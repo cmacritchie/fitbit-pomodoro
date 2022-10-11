@@ -6,6 +6,9 @@
       arc-width="10" start-angle="0" sweep-angle="360" />
  <image x="68" y="68" width="200" height="200" href="tomato-icon.png" />
  <use id="play-button" href="#icon-button" class="extra-large-button toast plus-button" />
+ <text id="watchTime" x="50%" y="50%-55"
+      fill="black" font-size="32" font-family="System-Regular"
+      text-anchor="middle" text-length="20">time</text>
  <text id="timer-label" x="50%" y="50%+55"
       fill="black" font-size="32" font-family="System-Regular"
       text-anchor="middle" text-length="20">25:00</text>
